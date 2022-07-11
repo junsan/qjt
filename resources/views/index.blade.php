@@ -47,7 +47,7 @@
                         <!-- ***** Menu Start ***** -->
                         <ul class="nav">
                             <li><a href="index.html" class="active">Home</a></li>
-                            <li><a href="jobs.html">Jobs</a></li>
+                            <li><a href="{{route('jobs')}}">Jobs</a></li>
                             <li class="dropdown">
                                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">About</a>
                               
