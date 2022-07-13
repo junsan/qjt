@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\CompanyController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\IndustryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,13 +31,15 @@ Route::get('/admin/dashboard', function () {
     return view('admin.dashboard');
 })->name('admin_dashboard');
 
-Route::get('/admin/companies', function () {
-    return view('admin.companies.index');
-})->name('admin_companies');
+Route::prefix('admin')->group(function () {
+    Route::name('admin.')->group(function () {
+        Route::resource('companies', CompanyController::class);
+    });
+});
 
-Route::get('/admin/companies/create', function () {
-    return view('admin.companies.create');
-})->name('admin_companies_create');
-
-Route::resource('companies', CompanyController::class);
+Route::prefix('admin')->group(function () {
+    Route::name('admin.')->group(function () {
+        Route::resource('industries', IndustryController::class);
+    });
+});
 

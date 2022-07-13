@@ -93,72 +93,16 @@
                         <h1 class="mt-4 mb-4">Create Company</h1>
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <form action="{{route('admin.companies.store')}}" method="POST">
+                                <form action="{{route('admin.industries.store')}}" method="POST">
                                     @csrf
                                     <div class="form-floating mb-3">
                                         <input value="{{old('name')}}" name="name" class="form-control" id="inputName" type="text" placeholder="Company Name" />
-                                        <label for="inputName">Company Name</label>
+                                        <label for="inputName">Name</label>
                                         @error('name')
                                             <div style="color: red">
                                                 {{ $message }}
                                             </div>
                                         @enderror
-                                    </div>
-                                    
-                                    <div class="form-floating mb-3">
-                                        <input value="{{old('address')}}" name="address" class="form-control" id="inputAddess" type="text" placeholder="Address" />
-                                        <label for="inputAddess">Address</label>
-                                        @error('address')
-                                            <div style="color: red">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-                                    
-                                    <div class="form-floating mb-3">
-                                        <input value="{{old('website')}}" name="website" class="form-control" id="inputWebsite" type="text" placeholder="Website" />
-                                        <label for="inputWebsite">Website</label>
-                                    </div>
-                                    
-                                    
-                                    <div class="form-group-lg mb-4">
-                                        <select name="industry_id" class="form-control">
-                                            <option value="">Select Industry...</option>
-                                            @foreach($industries as $industry)
-                                                <option value="{{$industry->id}}">{{$industry->name}}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('industry_id')
-                                            <div style="color: red">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-
-                                    <div class="form-group-lg mb-4">
-                                        <select name="employees" class="form-control">
-                                            <option value="">Select number of employees...</option>
-                                            <option value="0-1 employees">0-1 employees</option>
-                                            <option value="2-10 employees">2-10 employees</option>
-                                            <option value="11-50 employees">11-50 employees</option>
-                                        </select>
-                                        @error('employees')
-                                            <div style="color: red">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-                                    
-                                    <textarea name="description" id="summernote">{{old('description')}}</textarea>
-                                    @error('description')
-                                        <div style="color: red">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                    <br>
-                                    <div class="form-group mb-3">
-                                        <label for="exampleFormControlFile1">Company Logo</label>
-                                        <input type="file" class="form-control-file" id="exampleFormControlFile1">
                                     </div>
                                     <br>
                                     <button type="submit" class="btn btn-primary">Submit</button>

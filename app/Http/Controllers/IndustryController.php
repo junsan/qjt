@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Company;
-use Illuminate\Http\Request;
-use App\Http\Requests\CompanyRequest;
 use App\Models\Industry;
+use Illuminate\Http\Request;
 
-class CompanyController extends Controller
+class IndustryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +13,9 @@ class CompanyController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
-        $companies = Company::all();
-        return view('admin.companies.index', compact('companies'));
+    {
+        $industries = Industry::all();
+        return view('admin.industries.index', compact('industries'));
     }
 
     /**
@@ -27,8 +25,8 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        $industries = Industry::all();
-        return view('admin.companies.create', compact('industries'));
+        
+        return view('admin.industries.create');
     }
 
     /**
@@ -37,10 +35,15 @@ class CompanyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CompanyRequest $request)
+    public function store(Request $request)
     {
-        Company::create($request->validated());
-        return redirect()->route('admin.companies.index')->with('message', 'Company has been added.');  
+        $fields = $request->validate([
+            'name' => 'required'
+        ]);
+
+        Industry::create($fields);
+
+        return redirect()->route('admin.industries.index')->with('message', 'Industry has been added.');
     }
 
     /**

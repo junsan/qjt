@@ -55,7 +55,7 @@
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="layout-static.html">Manage</a>
-                                    <a class="nav-link" href="{{route('admin_companies_create')}}">Create Company</a>
+                                    <a class="nav-link" href="{{route('admin.companies.create')}}">Create Company</a>
                                 </nav>
                             </div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
@@ -94,20 +94,31 @@
                         <table class="table">
                             <thead class="table-dark">
                             <tr>
-                                <th>Country Code</th>
-                                <th>Name</th>
-                                <th>Created at</th>
+                                <th>Company Name</th>
+                                <th>Industry</th>
+                                <th>Address</th>
                                 <th>Manage</th>
                             </tr>
                             </thead>
                             <tbody>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                @foreach($companies as $company)
+                                    <tr>
+                                        <td>{{$company->name}}</td>
+                                        <td>{{$company->industry->name}}</td>
+                                        <td>{{$company->address}}</td>
+                                        <td>
+                                        <a class="btn btn-success" href="{{route('admin.companies.edit', $company->id)}}">Edit</a> 
+                                        <form style="float: right" action="{{route('admin.companies.destroy', $company->id)}}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                        </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
-                            
+                        <a class="btn btn-primary" href="{{route('admin.companies.create')}}">Create Company</a>    
                     </div>
                 </main>
                 <footer class="py-4 bg-light mt-auto">
