@@ -7,6 +7,7 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Dashboard - QJT Admin</title>
+        <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
         <link href="{{asset('css/admin_style.css')}}" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
     </head>
@@ -55,7 +56,7 @@
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="layout-static.html">Manage</a>
-                                    <a class="nav-link" href="{{route('admin.companies.create')}}">Create Company</a>
+                                    <a class="nav-link" href="layout-sidenav-light.html">Create Company</a>
                                 </nav>
                             </div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
@@ -89,33 +90,26 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4 mb-4">Industries</h1>
-                        <table class="table">
-                            <thead class="table-dark">
-                            <tr>
-                                <th>Name</th>
-                                <th>Created at</th>
-                                <th>Manage</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($industries as $industry)
-                                    <tr>
-                                        <td>{{$industry->name}}</td>
-                                        <td>{{$industry->created_at}}</td>
-                                        <td>
-                                        <a href="{{route('admin.industries.edit', $industry->id)}}" style="color: green; text-decoration:none;">Edit</a> 
-                                        <form style="float: right" action="{{route('admin.industries.destroy', $industry->id)}}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" style="color: red; background-color: transparent; border: none;">Delete</button>
-                                        </form>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                        <a class="btn btn-primary" href="{{route('admin.industries.create')}}">Create Industry</a>
+                        <h1 class="mt-4 mb-4">Create Category</h1>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <form action="{{route('admin.categories.store')}}" method="POST">
+                                    @csrf
+                                    <div class="form-floating mb-3">
+                                        <input value="{{old('name')}}" name="name" class="form-control" id="inputName" type="text" placeholder="Company Name" />
+                                        <label for="inputName">Name</label>
+                                        @error('name')
+                                            <div style="color: red">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                    <br>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                            
                     </div>
                 </main>
                 <footer class="py-4 bg-light mt-auto">
@@ -128,7 +122,25 @@
                 </footer>
             </div>
         </div>
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script>
+            $('#summernote').summernote({
+                placeholder: 'Company description',
+                tabsize: 2,
+                height: 180,
+                toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video']],
+                ['view', ['fullscreen', 'codeview', 'help']]
+                ]
+            });
+        </script>       
         <script src="{{asset('js/admin_scripts.js')}}"></script>
     </body>
 </html>

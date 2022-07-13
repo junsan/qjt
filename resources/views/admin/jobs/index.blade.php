@@ -89,33 +89,40 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4 mb-4">Industries</h1>
+                        <h1 class="mt-4 mb-4">Companies</h1>
+                        
                         <table class="table">
                             <thead class="table-dark">
                             <tr>
-                                <th>Name</th>
-                                <th>Created at</th>
+                                <th>Title</th>
+                                <th>Company</th>
+                                <th>Industry</th>
+                                <th>Category</th>
+                                <th>Country</th>
                                 <th>Manage</th>
                             </tr>
                             </thead>
                             <tbody>
-                                @foreach($industries as $industry)
+                                @foreach($jobs as $job)
                                     <tr>
-                                        <td>{{$industry->name}}</td>
-                                        <td>{{$industry->created_at}}</td>
+                                        <td>{{$job->title}}</td>
+                                        <td>{{$job->company->name}}</td>
+                                        <td>{{$job->industry->name}}</td>
+                                        <td>{{$job->category->name}}</td>
+                                        <td>{{$job->country}}</td>
                                         <td>
-                                        <a href="{{route('admin.industries.edit', $industry->id)}}" style="color: green; text-decoration:none;">Edit</a> 
-                                        <form style="float: right" action="{{route('admin.industries.destroy', $industry->id)}}" method="POST">
+                                        <a class="btn btn-success" href="{{route('admin.jobs.edit', $job->id)}}">Edit</a> 
+                                        <form style="float: right" action="{{route('admin.jobs.destroy', $job->id)}}" method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" style="color: red; background-color: transparent; border: none;">Delete</button>
+                                            <button type="submit" class="btn btn-danger">Delete</button>
                                         </form>
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
-                        <a class="btn btn-primary" href="{{route('admin.industries.create')}}">Create Industry</a>
+                        <a class="btn btn-primary" href="{{route('admin.jobs.create')}}">Create Job</a>    
                     </div>
                 </main>
                 <footer class="py-4 bg-light mt-auto">

@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\JobController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\IndustryController;
 
 /*
@@ -43,3 +45,14 @@ Route::prefix('admin')->group(function () {
     });
 });
 
+Route::prefix('admin')->group(function () {
+    Route::name('admin.')->group(function () {
+        Route::resource('categories', CategoryController::class);
+    });
+});
+
+Route::prefix('admin')->group(function () {
+    Route::name('admin.')->group(function () {
+        Route::resource('jobs', JobController::class);
+    });
+});

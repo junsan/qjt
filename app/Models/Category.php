@@ -3,11 +3,10 @@
 namespace App\Models;
 
 use App\Models\Job;
-use App\Models\Company;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Industry extends Model
+class Category extends Model
 {
     use HasFactory;
 
@@ -15,11 +14,7 @@ class Industry extends Model
         'name',
     ];
 
-    public function companies() {
-        return $this->hasMany(Company::class, 'industry_id');
-    }
-
     public function jobs() {
-        return $this->hasMany(Job::class, 'industry_id');
+        return $this->hasMany(Job::class, 'category_id');
     }
 }

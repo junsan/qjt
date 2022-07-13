@@ -90,20 +90,121 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4 mb-4">Create Industry</h1>
+                        <h1 class="mt-4 mb-4">Create Job</h1>
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <form action="{{route('admin.industries.store')}}" method="POST">
+                                <form action="{{route('admin.jobs.store')}}" method="POST">
                                     @csrf
                                     <div class="form-floating mb-3">
-                                        <input value="{{old('name')}}" name="name" class="form-control" id="inputName" type="text" placeholder="Company Name" />
-                                        <label for="inputName">Name</label>
-                                        @error('name')
+                                        <input value="{{old('title')}}" name="title" class="form-control" id="inputTitle" type="text" placeholder="Title" />
+                                        <label for="inputTitle">Title</label>
+                                        @error('title')
                                             <div style="color: red">
                                                 {{ $message }}
                                             </div>
                                         @enderror
                                     </div>
+
+                                    <div class="form-group-lg mb-4">
+                                        <select name="company_id" class="form-control">
+                                            <option value="">Select Company...</option>
+                                            @foreach($companies as $company)
+                                                @if (old('company_id') == $company->id)
+                                                    <option selected value="{{$company->id}}">{{$company->name}}</option>
+                                                @else
+                                                    <option value="{{$company->id}}">{{$company->name}}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                        @error('company_id')
+                                            <div style="color: red">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                    
+                                    <div class="form-group-lg mb-4">
+                                        <select name="industry_id" class="form-control">
+                                            <option value="">Select Industry...</option>
+                                            @foreach($industries as $industry)
+                                                @if (old('industry_id') == $industry->id)
+                                                    <option selected value="{{$industry->id}}">{{$industry->name}}</option>
+                                                @else
+                                                    <option value="{{$industry->id}}">{{$industry->name}}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                        @error('industry_id')
+                                            <div style="color: red">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-group-lg mb-4">
+                                        <select name="category_id" class="form-control">
+                                            <option value="">Select Category...</option>
+                                            @foreach($categories as $category)
+                                                @if (old('category_id') == $category->id)
+                                                    <option selected value="{{$category->id}}">{{$category->name}}</option>
+                                                @else
+                                                    <option value="{{$category->id}}">{{$category->name}}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                        @error('category_id')
+                                            <div style="color: red">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-floating mb-3">
+                                        <input value="Qatar" name="country" class="form-control" id="inputCountry" type="text" placeholder="Country" />
+                                        <label for="inputCountry">Country</label>
+                                        @error('country')
+                                            <div style="color: red">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                    
+                                    <div class="form-floating mb-3">
+                                        <input value="{{old('vacancies')}}" name="vacancies" class="form-control" id="inputVacancies" type="number" placeholder="Vacancies" />
+                                        <label for="inputVacancies">Vacancies</label>
+                                        @error('vacancies')
+                                            <div style="color: red">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-group-lg mb-4">
+                                        <select name="employment" class="form-control">
+                                            <option value="">Select employment type...</option>
+                                            <option value="Full Time">Full Time</option>
+                                            <option value="Part Time">Part Time</option>
+                                        </select>
+                                        @error('employment')
+                                            <div style="color: red">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                    
+                                    <textarea name="description" id="summernote">{{old('description')}}</textarea>
+                                    @error('description')
+                                        <div style="color: red">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                    <br><br>
+                                    <textarea name="requirements" id="requirements">{{old('requirements')}}</textarea>
+                                    @error('requirements')
+                                        <div style="color: red">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                     <br>
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                 </form>
@@ -127,7 +228,22 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script>
             $('#summernote').summernote({
-                placeholder: 'Company description',
+                placeholder: 'Job description',
+                tabsize: 2,
+                height: 180,
+                toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video']],
+                ['view', ['fullscreen', 'codeview', 'help']]
+                ]
+            });
+
+            $('#requirements').summernote({
+                placeholder: 'Job requirements',
                 tabsize: 2,
                 height: 180,
                 toolbar: [
