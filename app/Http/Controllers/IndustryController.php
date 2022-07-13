@@ -86,8 +86,9 @@ class IndustryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Industry $industry)
     {
-        //
+        $industry->delete();
+        return redirect()->route('admin.industries.index')->with('message', 'Industry has been deleted.');
     }
 }

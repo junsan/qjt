@@ -104,11 +104,11 @@
                                         <td>{{$industry->name}}</td>
                                         <td>{{$industry->created_at}}</td>
                                         <td>
-                                        <a href="{{route('admin.industries.edit', $industry->id)}}" style="color: green; text-decoration:none;">Edit</a> 
+                                        <a class="btn btn-success" href="{{route('admin.industries.edit', $industry->id)}}" >Edit</a> 
                                         <form style="float: right" action="{{route('admin.industries.destroy', $industry->id)}}" method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" style="color: red; background-color: transparent; border: none;">Delete</button>
+                                            <button type="submit" class="btn btn-danger">Delete</button>
                                         </form>
                                         </td>
                                     </tr>

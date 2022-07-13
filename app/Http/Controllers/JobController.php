@@ -87,8 +87,10 @@ class JobController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Job $job)
     {
-        //
+        $job->delete();
+        return redirect()->route('admin.jobs.index')->with('message', 'Job has been deleted.');
     }
+    
 }
