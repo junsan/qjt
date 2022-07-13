@@ -90,48 +90,43 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4 mb-4">Create Job</h1>
+                        <h1 class="mt-4 mb-4">Update Company</h1>
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <form action="{{route('admin.jobs.store')}}" method="POST">
+                                <form action="{{route('admin.companies.update', $company->id)}}" method="POST">
                                     @csrf
+                                    @method('PUT')
                                     <div class="form-floating mb-3">
-                                        <input value="{{old('title')}}" name="title" class="form-control" id="inputTitle" type="text" placeholder="Title" />
-                                        <label for="inputTitle">Title</label>
-                                        @error('title')
-                                            <div style="color: red">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-
-                                    <div class="form-group-lg mb-4">
-                                        <select name="company_id" class="form-control">
-                                            <option value="">Select Company...</option>
-                                            @foreach($companies as $company)
-                                                @if (old('company_id') == $company->id)
-                                                    <option selected value="{{$company->id}}">{{$company->name}}</option>
-                                                @else
-                                                    <option value="{{$company->id}}">{{$company->name}}</option>
-                                                @endif
-                                            @endforeach
-                                        </select>
-                                        @error('company_id')
+                                        <input value="{{old('name', $company->name)}}" name="name" class="form-control" id="inputName" type="text" placeholder="Company Name" />
+                                        <label for="inputName">Company Name</label>
+                                        @error('name')
                                             <div style="color: red">
                                                 {{ $message }}
                                             </div>
                                         @enderror
                                     </div>
                                     
+                                    <div class="form-floating mb-3">
+                                        <input value="{{old('address', $company->address)}}" name="address" class="form-control" id="inputAddess" type="text" placeholder="Address" />
+                                        <label for="inputAddess">Address</label>
+                                        @error('address')
+                                            <div style="color: red">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                    
+                                    <div class="form-floating mb-3">
+                                        <input value="{{old('website', $company->website)}}" name="website" class="form-control" id="inputWebsite" type="text" placeholder="Website" />
+                                        <label for="inputWebsite">Website</label>
+                                    </div>
+                                    
+                                    
                                     <div class="form-group-lg mb-4">
                                         <select name="industry_id" class="form-control">
                                             <option value="">Select Industry...</option>
                                             @foreach($industries as $industry)
-                                                @if (old('industry_id') == $industry->id)
-                                                    <option selected value="{{$industry->id}}">{{$industry->name}}</option>
-                                                @else
-                                                    <option value="{{$industry->id}}">{{$industry->name}}</option>
-                                                @endif
+                                                <option {{ ($company->industry->id == $industry->id) ? 'selected' : ''; }} value="{{$industry->id}}">{{$industry->name}}</option>
                                             @endforeach
                                         </select>
                                         @error('industry_id')
@@ -142,75 +137,35 @@
                                     </div>
 
                                     <div class="form-group-lg mb-4">
-                                        <select name="category_id" class="form-control">
-                                            <option value="">Select Category...</option>
-                                            @foreach($categories as $category)
-                                                @if (old('category_id') == $category->id)
-                                                    <option selected value="{{$category->id}}">{{$category->name}}</option>
-                                                @else
-                                                    <option value="{{$category->id}}">{{$category->name}}</option>
-                                                @endif
-                                            @endforeach
-                                        </select>
-                                        @error('category_id')
-                                            <div style="color: red">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-
-                                    <div class="form-floating mb-3">
-                                        <input value="Qatar" name="country" class="form-control" id="inputCountry" type="text" placeholder="Country" />
-                                        <label for="inputCountry">Country</label>
-                                        @error('country')
-                                            <div style="color: red">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-                                    
-                                    <div class="form-floating mb-3">
-                                        <input value="{{old('vacancies')}}" name="vacancies" class="form-control" id="inputVacancies" type="number" placeholder="Vacancies" />
-                                        <label for="inputVacancies">Vacancies</label>
-                                        @error('vacancies')
-                                            <div style="color: red">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
-                                    </div>
-
-                                    <div class="form-group-lg mb-4">
-                                        <select name="employment" class="form-control">
-                                            <option value="">Select employment type...</option>
+                                        <select name="employees" class="form-control">
+                                            <option value="">Select number of employees...</option>
                                             @php
-                                                $employments = ['Full Time', 'Part Time'];
+                                                $employees = ['0-1 employees', '2-10 employees', '11-50 employees'];
                                             @endphp
-                                            @foreach($employments as $employment)
-                                                <option value="{{$employment}}">{{$employment}}</option>
+                                            @foreach($employees as $employee)
+                                                <option {{$company->employees == $employee ? 'selected' : ''; }} value="{{$employee}}">{{$employee}}</option>
                                             @endforeach
                                         </select>
-                                        @error('employment')
+                                        @error('employees')
                                             <div style="color: red">
                                                 {{ $message }}
                                             </div>
                                         @enderror
                                     </div>
                                     
-                                    <textarea name="description" id="summernote">{{old('description')}}</textarea>
+                                    <textarea name="description" id="summernote">{{old('description', $company->description)}}</textarea>
                                     @error('description')
                                         <div style="color: red">
                                             {{ $message }}
                                         </div>
                                     @enderror
-                                    <br><br>
-                                    <textarea name="requirements" id="requirements">{{old('requirements')}}</textarea>
-                                    @error('requirements')
-                                        <div style="color: red">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
                                     <br>
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <div class="form-group mb-3">
+                                        <label for="exampleFormControlFile1">Company Logo</label>
+                                        <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                                    </div>
+                                    <br>
+                                    <button type="submit" class="btn btn-primary">Update</button>
                                 </form>
                             </div>
                         </div>
@@ -232,22 +187,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script>
             $('#summernote').summernote({
-                placeholder: 'Job description',
-                tabsize: 2,
-                height: 180,
-                toolbar: [
-                ['style', ['style']],
-                ['font', ['bold', 'underline', 'clear']],
-                ['color', ['color']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['table', ['table']],
-                ['insert', ['link', 'picture', 'video']],
-                ['view', ['fullscreen', 'codeview', 'help']]
-                ]
-            });
-
-            $('#requirements').summernote({
-                placeholder: 'Job requirements',
+                placeholder: 'Company description',
                 tabsize: 2,
                 height: 180,
                 toolbar: [

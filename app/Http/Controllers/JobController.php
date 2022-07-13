@@ -64,9 +64,12 @@ class JobController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Job $job)
     {
-        //
+        $companies = Company::all();
+        $industries = Industry::all();
+        $categories = Category::all();
+        return view('admin.jobs.edit', compact('job', 'industries', 'categories', 'companies'));
     }
 
     /**
@@ -76,9 +79,10 @@ class JobController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(JobRequest $request, Job $job)
     {
-        //
+        $job->update($request->validated());
+        return redirect()->route('admin.jobs.index')->with('message', 'Job has been updated.'); 
     }
 
     /**

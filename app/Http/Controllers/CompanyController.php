@@ -60,9 +60,10 @@ class CompanyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Company $company)
     {
-        //
+        $industries = Industry::all();
+        return view('admin.companies.edit', compact('company', 'industries'));
     }
 
     /**
@@ -72,9 +73,10 @@ class CompanyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CompanyRequest $request, Company $company)
     {
-        //
+        $company->update($request->validated());
+        return redirect()->route('admin.companies.index')->with('message', 'Company has been updated.');  
     }
 
     /**

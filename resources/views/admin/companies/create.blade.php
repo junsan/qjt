@@ -138,9 +138,12 @@
                                     <div class="form-group-lg mb-4">
                                         <select name="employees" class="form-control">
                                             <option value="">Select number of employees...</option>
-                                            <option value="0-1 employees">0-1 employees</option>
-                                            <option value="2-10 employees">2-10 employees</option>
-                                            <option value="11-50 employees">11-50 employees</option>
+                                            @php
+                                                $employees = ['0-1 employees', '2-10 employees', '11-50 employees'];
+                                            @endphp
+                                            @foreach($employees as $employee)
+                                                <option {{ old('employees') == $employee ? 'selected' : ''; }} value="{{$employee}}">{{$employee}}</option>
+                                            @endforeach
                                         </select>
                                         @error('employees')
                                             <div style="color: red">

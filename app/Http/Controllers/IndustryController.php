@@ -42,7 +42,6 @@ class IndustryController extends Controller
         ]);
 
         Industry::create($fields);
-
         return redirect()->route('admin.industries.index')->with('message', 'Industry has been added.');
     }
 
@@ -63,9 +62,9 @@ class IndustryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Industry $industry)
     {
-        //
+        return view('admin.industries.edit', compact('industry'));
     }
 
     /**
@@ -75,9 +74,14 @@ class IndustryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Industry $industry)
     {
-        //
+        $fields = $request->validate([
+            'name' => 'required'
+        ]);
+
+        $industry->update($fields);
+        return redirect()->route('admin.industries.index')->with('message', 'Industry has been updated.');
     }
 
     /**

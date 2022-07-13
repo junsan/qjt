@@ -90,13 +90,14 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4 mb-4">Create Job</h1>
+                        <h1 class="mt-4 mb-4">Update Job</h1>
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <form action="{{route('admin.jobs.store')}}" method="POST">
+                                <form action="{{route('admin.jobs.update', $job->id)}}" method="POST">
                                     @csrf
+                                    @method('PUT')
                                     <div class="form-floating mb-3">
-                                        <input value="{{old('title')}}" name="title" class="form-control" id="inputTitle" type="text" placeholder="Title" />
+                                        <input value="{{old('title', $job->title)}}" name="title" class="form-control" id="inputTitle" type="text" placeholder="Title" />
                                         <label for="inputTitle">Title</label>
                                         @error('title')
                                             <div style="color: red">
@@ -109,7 +110,7 @@
                                         <select name="company_id" class="form-control">
                                             <option value="">Select Company...</option>
                                             @foreach($companies as $company)
-                                                @if (old('company_id') == $company->id)
+                                                @if (old('company_id', $job->company->id) == $company->id)
                                                     <option selected value="{{$company->id}}">{{$company->name}}</option>
                                                 @else
                                                     <option value="{{$company->id}}">{{$company->name}}</option>
@@ -127,7 +128,7 @@
                                         <select name="industry_id" class="form-control">
                                             <option value="">Select Industry...</option>
                                             @foreach($industries as $industry)
-                                                @if (old('industry_id') == $industry->id)
+                                                @if (old('industry_id', $job->industry->id) == $industry->id)
                                                     <option selected value="{{$industry->id}}">{{$industry->name}}</option>
                                                 @else
                                                     <option value="{{$industry->id}}">{{$industry->name}}</option>
@@ -145,7 +146,7 @@
                                         <select name="category_id" class="form-control">
                                             <option value="">Select Category...</option>
                                             @foreach($categories as $category)
-                                                @if (old('category_id') == $category->id)
+                                                @if (old('category_id', $job->category->id) == $category->id)
                                                     <option selected value="{{$category->id}}">{{$category->name}}</option>
                                                 @else
                                                     <option value="{{$category->id}}">{{$category->name}}</option>
@@ -170,7 +171,7 @@
                                     </div>
                                     
                                     <div class="form-floating mb-3">
-                                        <input value="{{old('vacancies')}}" name="vacancies" class="form-control" id="inputVacancies" type="number" placeholder="Vacancies" />
+                                        <input value="{{old('vacancies', $job->vacancies)}}" name="vacancies" class="form-control" id="inputVacancies" type="number" placeholder="Vacancies" />
                                         <label for="inputVacancies">Vacancies</label>
                                         @error('vacancies')
                                             <div style="color: red">
@@ -186,7 +187,7 @@
                                                 $employments = ['Full Time', 'Part Time'];
                                             @endphp
                                             @foreach($employments as $employment)
-                                                <option value="{{$employment}}">{{$employment}}</option>
+                                                <option {{$job->employment == $employment ? 'selected' : ''; }} value="{{$employment}}">{{$employment}}</option>
                                             @endforeach
                                         </select>
                                         @error('employment')
@@ -196,21 +197,21 @@
                                         @enderror
                                     </div>
                                     
-                                    <textarea name="description" id="summernote">{{old('description')}}</textarea>
+                                    <textarea name="description" id="summernote">{{old('description', $job->description)}}</textarea>
                                     @error('description')
                                         <div style="color: red">
                                             {{ $message }}
                                         </div>
                                     @enderror
                                     <br><br>
-                                    <textarea name="requirements" id="requirements">{{old('requirements')}}</textarea>
+                                    <textarea name="requirements" id="requirements">{{old('requirements', $job->requirements)}}</textarea>
                                     @error('requirements')
                                         <div style="color: red">
                                             {{ $message }}
                                         </div>
                                     @enderror
                                     <br>
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <button type="submit" class="btn btn-primary">Update</button>
                                 </form>
                             </div>
                         </div>
