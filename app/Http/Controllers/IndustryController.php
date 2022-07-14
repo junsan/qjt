@@ -95,4 +95,9 @@ class IndustryController extends Controller
         $industry->delete();
         return redirect()->route('admin.industries.index')->with('message', 'Industry has been deleted.');
     }
+
+    public function all() {
+        $industries = Industry::all();
+        return response()->json($industries);
+    }
 }

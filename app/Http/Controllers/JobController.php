@@ -96,5 +96,16 @@ class JobController extends Controller
         $job->delete();
         return redirect()->route('admin.jobs.index')->with('message', 'Job has been deleted.');
     }
-    
+
+    public function search_jobs() {
+        $jobs = Job::all();
+        $categories = Category::all();
+        $industries = Industry::all();
+        return view('jobs', compact('jobs', 'categories', 'industries'));
+    }
+
+    public function all() {
+        $jobs = Job::all();
+        return response()->json($jobs);
+    }
 }

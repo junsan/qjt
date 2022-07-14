@@ -95,4 +95,9 @@ class CategoryController extends Controller
         $category->delete();
         return redirect()->route('admin.categories.index')->with('message', 'Category has been deleted.');
     }
+
+    public function all() {
+        $categories = Category::all();
+        return response()->json($categories);
+    }
 }

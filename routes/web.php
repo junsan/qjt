@@ -18,12 +18,10 @@ use App\Http\Controllers\IndustryController;
 */
 
 Route::get('/', function () {
-    return view('index');
+    return view('home');
 })->name('home');
 
-Route::get('/jobs', function () {
-    return view('jobs');
-})->name('jobs');
+Route::get('/jobs',[JobController::class, 'search_jobs'])->name('jobs');
 
 Route::get('/admin/login', function () {
     return view('admin.login');
