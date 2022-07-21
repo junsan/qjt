@@ -49,7 +49,7 @@
                             <h5 style="margin-bottom: 15px">Category</h5>
                                 <div v-for="category in categories" :key="category.id">
                                     <label>
-                                        <input @change="searchJobs()" type="checkbox"> <span>{{category.name}}</span>
+                                        <input @change="searchJobs()" type="checkbox" v-model="selectedCategories" :id="category.id" :value="category.id"> <span>{{category.name}}</span>
                                     </label>
                                 </div>
                             <br>
@@ -108,7 +108,8 @@ export default {
             jobs: [],
             categories: [],
             industries: [],
-            query: null
+            query: '',
+            selectedCategories: []
         }
     },
     created() {
@@ -136,10 +137,26 @@ export default {
             }).catch(err => console.log(err)) 
         },
         searchJobs() {
-            axios.get('api/search?query='+this.query)
-            .then(res => {
-                this.jobs = res.data.data
-            }).catch(err => console.log(err)) 
+            let arrayCategories = [];
+            this.selectedCategories.forEach(cat => arrayCategories.push(cat));
+
+            const options = {
+            method: 'GET',
+                url: 'api/search',
+                params: {query: this.query, categories: arrayCategories},
+                
+            };
+
+            axios.request(options).then((response) => {
+                this.jobs = response.data.data
+            }).catch(function (error) {
+                console.error(error)
+            });
+        }
+    },
+    watch: {
+        selectedCategories() {
+            console.log(this.selectedCategories)
         }
     }
 }

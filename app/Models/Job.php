@@ -40,12 +40,22 @@ class Job extends Model
     }
 
     public function scopeFilter($query, array $filters) {
-        
-        if($filters['query'] ?? false) {
+
+        if($filters['query'] != '' && !empty($filters['categories'])) {
+            
+            $query->where(function($query) use ($filters) {
+                    $query->where('title', 'like', '%'. request('query').'%')
+                        ->orWhere('requirements', 'like', '%'. request('query').'%')
+                        ->whereIn('category_id', $filters['categories']);
+                });
+
+        } else if($filters['query'] != '') {
             $query->where('title', 'like', '%' . request('query') . '%')
                 ->orWhere('requirements', 'like', '%'. request('query').'%');
 
+        } else if (!empty($filters['categories'])) {
+            $query->whereIn('category_id', $filters['categories']);
         }
-        
+
     }
 }

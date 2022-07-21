@@ -111,7 +111,7 @@ class JobController extends Controller
     }
 
     public function search() {
-        $jobs = Job::latest()->filter(request(['query']))->paginate(5);
+        $jobs = Job::latest()->filter(request(['query', 'categories']))->paginate(5);
         return JobResource::collection($jobs);
     }
 }
