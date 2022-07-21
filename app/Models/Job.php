@@ -38,4 +38,14 @@ class Job extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public function scopeFilter($query, array $filters) {
+        
+        if($filters['query'] ?? false) {
+            $query->where('title', 'like', '%' . request('query') . '%')
+                ->orWhere('requirements', 'like', '%'. request('query').'%');
+
+        }
+        
+    }
 }

@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Industry;
 use Illuminate\Http\Request;
 use App\Http\Requests\JobRequest;
+use App\Http\Resources\JobResource;
 
 class JobController extends Controller
 {
@@ -106,6 +107,11 @@ class JobController extends Controller
 
     public function all() {
         $jobs = Job::all();
-        return response()->json($jobs);
+        return JobResource::collection($jobs);
+    }
+
+    public function search() {
+        $jobs = Job::latest()->filter(request(['query']))->paginate(5);
+        return JobResource::collection($jobs);
     }
 }

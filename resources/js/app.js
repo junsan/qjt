@@ -3,11 +3,11 @@ import './bootstrap';
 import { createApp } from 'vue/dist/vue.esm-bundler.js';
 
 import HelloWorld from './components/Welcome.vue';
-import JobIndex from './components/jobs/Index.vue';
+import JobsSearch from './components/jobs/Search.vue';
 
 let app = createApp({})
 
 app.component('hello-world', HelloWorld);
-app.component('job-index', JobIndex);
+app.component('jobs-search', JobsSearch);
 
 app.mount("#app") 
