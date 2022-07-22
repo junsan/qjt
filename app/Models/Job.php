@@ -41,19 +41,33 @@ class Job extends Model
 
     public function scopeFilter($query, array $filters) {
 
-        if ($filters['query'] != '' && !empty($filters['categories'])) {
+        if ($filters['query'] != '' && !empty($filters['categories']) && !empty($filters['industries'])) {
 
             $query->where(function($query) use ($filters) {
                     $query->where('title', 'like', '%'. request('query').'%')
                         ->orWhere('requirements', 'like', '%'. request('query').'%')
-                        ->whereIn('category_id', $filters['categories']);
+                        ->whereIn('category_id', $filters['categories'])
+                        ->whereIn('industry_id', $filters['industries']);
+                });
+
+        } else if ($filters['query'] != '' && !empty($filters['categories'])) {
+
+            $query->where('title', 'like', '%'. request('query').'%')->where(function($query) use ($filters) {
+                    $query->whereIn('category_id', $filters['categories'])
+                        ->orWhere('requirements', 'like', '%'. request('query').'%');
                 });
 
         } else if ($filters['query'] != '' && !empty($filters['industries'])) {
 
+            $query->where('title', 'like', '%'. request('query').'%')->where(function($query) use ($filters) {
+                $query->whereIn('industry_id', $filters['industries'])
+                    ->orWhere('requirements', 'like', '%'. request('query').'%');
+            });
+        
+        } else if (!empty($filters['categories']) && !empty($filters['industries'])) {
+
             $query->where(function($query) use ($filters) {
-                    $query->where('title', 'like', '%'. request('query').'%')
-                        ->orWhere('requirements', 'like', '%'. request('query').'%')
+                    $query->whereIn('category_id', $filters['categories'])
                         ->whereIn('industry_id', $filters['industries']);
                 });
      
