@@ -57,7 +57,7 @@
                             <h5 style="margin-bottom: 15px">Industry</h5>
                                 <div v-for="industry in industries" :key="industry.id">
                                     <label>
-                                        <input type="checkbox"> <span>{{industry.name}}</span>
+                                        <input type="checkbox" @change="searchJobs()" v-model="selectedIndustries" :value="industry.id"> <span>{{industry.name}}</span>
                                     </label>
                                 </div>
                             <br>
@@ -109,7 +109,8 @@ export default {
             categories: [],
             industries: [],
             query: '',
-            selectedCategories: []
+            selectedCategories: [],
+            selectedIndustries: []
         }
     },
     created() {
@@ -138,12 +139,14 @@ export default {
         },
         searchJobs() {
             let arrayCategories = [];
-            this.selectedCategories.forEach(cat => arrayCategories.push(cat));
+            let arrayIndustries = [];
+            this.selectedCategories.forEach(category => arrayCategories.push(category))
+            this.selectedIndustries.forEach(industry => arrayIndustries.push(industry))
 
             const options = {
             method: 'GET',
                 url: 'api/search',
-                params: {query: this.query, categories: arrayCategories},
+                params: {query: this.query, categories: arrayCategories, industries: arrayIndustries},
                 
             };
 
