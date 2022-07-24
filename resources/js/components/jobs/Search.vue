@@ -75,7 +75,7 @@
                                         <img src="https://www.gulftalent.com/gtimages/large/SE350-10405_logo-img-cloud-spaces-careers-jobs.jpg" >
                                         <span><a href="">{{job.company.name}}</a></span>
 
-                                        <h4>{{job.title}}</h4>
+                                        <a href="" @click.prevent="showJob(job.id)"><h4>{{job.title}}</h4></a>
 
                                         <p>{{job.category.name}} &nbsp;/&nbsp; {{job.industry.name}}</p>
 
@@ -88,10 +88,18 @@
                         </div>
                     </div>
                     <div class="col-lg-4">
-                        <h2>Senior Corporate & Finance Lawyer</h2>
-                        <br>
-                        <p>Our senses step into gear from the moment we wake up in the morning until we turn in for the night. The consumer grooming and cleaning regimen intersects with personal care, home care, fabric care, oral care, and active beauty products, with fragrance at the core of every experience. Givaudan Consumer Products (CP’s) are, more often than not, responsible for carrying you through the olfactive journey of your day.</p>
-                    </div>
+                        <div v-if="show_job">
+                            <h2>{{ job.title }}</h2>
+                            <br>
+                            <h5>Job Description</h5>
+                            <br>
+                            <p v-html="job.description"></p>
+                            <br>
+                            <h5>Requirements</h5>
+                            <br>
+                            <p v-html="job.requirements"></p>
+                        </div>
+                   </div>
                 </div>
 
                 <br>
@@ -106,11 +114,13 @@ export default {
     data() {
         return {
             jobs: [],
+            job: [],
             categories: [],
             industries: [],
             query: '',
             selectedCategories: [],
-            selectedIndustries: []
+            selectedIndustries: [],
+            show_job: false
         }
     },
     created() {
@@ -155,6 +165,14 @@ export default {
             }).catch(function (error) {
                 console.error(error)
             });
+        },
+        showJob(id) {
+            this.show_job = false
+            axios.get('api/job/'+id)
+            .then(res => {
+                this.job = res.data.data
+                this.show_job = true
+            }).catch(err => console.log(err)) 
         }
     },
     watch: {

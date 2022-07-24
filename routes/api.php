@@ -24,4 +24,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('industries', [IndustryController::class, 'all']);
 Route::get('categories', [CategoryController::class, 'all']);
 Route::get('jobs', [JobController::class, 'all']);
+Route::get('job/{job}', [JobController::class, 'show']);
 Route::get('search', [JobController::class, 'search']);
