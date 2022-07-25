@@ -1,8 +1,5 @@
-@extends('layout')
-
-
-@section('content')
-<!-- ***** Main Banner Area Start ***** -->
+<x-guest-layout>
+    <!-- ***** Main Banner Area Start ***** -->
     <div class="main-banner" id="top">
         <video autoplay muted loop id="bg-video">
             <source src="assets/images/video.mp4" type="video/mp4" />
@@ -199,4 +196,4 @@
             </div>
         </div>
     </section>
-@endsection
+</x-guest-layout>

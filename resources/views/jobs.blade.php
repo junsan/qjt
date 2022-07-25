@@ -1,5 +1,3 @@
-@extends('layout')
-
-@section('content')
+<x-guest-layout>
     <jobs-search></jobs-search>
-@endsection
+</x-guest-layout>

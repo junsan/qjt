@@ -80,7 +80,7 @@
                                         <p>{{job.category.name}} &nbsp;/&nbsp; {{job.industry.name}}</p>
 
                                         <ul class="social-icons">
-                                            <li><a href="job-details.html">+ View More</a></li>
+                                            <li><a href="" @click.prevent="showJob(job.id)">+ View More</a></li>
                                         </ul>
                                     </div>
                                 </div>
