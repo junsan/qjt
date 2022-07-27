@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\IndustryController;
+use App\Http\Controllers\EducationController;
+use App\Http\Controllers\ExperienceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,3 +28,6 @@ Route::get('categories', [CategoryController::class, 'all']);
 Route::get('jobs', [JobController::class, 'all']);
 Route::get('job/{job}', [JobController::class, 'show']);
 Route::get('search', [JobController::class, 'search']);
+
+Route::apiResource('experience', ExperienceController::class);
+Route::apiResource('education', EducationController::class);

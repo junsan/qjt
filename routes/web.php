@@ -29,6 +29,10 @@ Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
 
+Route::get('/resume', function () {
+    return view('resume');
+})->name('resume');
+
 Route::get('/jobs',[JobController::class, 'search_jobs'])->name('jobs');
 
 Route::get('/admin/login', function () {

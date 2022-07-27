@@ -89,15 +89,7 @@
                     </div>
                     <div class="col-lg-4">
                         <div v-if="show_job">
-                            <h2>{{ job.title }}</h2>
-                            <br>
-                            <h5>Job Description</h5>
-                            <br>
-                            <p v-html="job.description"></p>
-                            <br>
-                            <h5>Requirements</h5>
-                            <br>
-                            <p v-html="job.requirements"></p>
+                            <job :job="job"></job>
                         </div>
                    </div>
                 </div>

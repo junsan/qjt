@@ -1014,7 +1014,7 @@ contact
   color: #7a7a7a;
 }
 
-.contact-form button {
+.contact-form .orange-button {
   display: inline-block;
   font-size: 13px;
   padding: 11px 17px;
