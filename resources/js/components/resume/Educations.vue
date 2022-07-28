@@ -1,9 +1,9 @@
 <template>
     <div v-for="education in educations" :key="education.id" style="margin-bottom: 20px">
         <div style="float: left; margin-right: 15px;">
-            <img src="assets/images/experience-default.png" style="">
+            <img src="assets/images/education-default.png" style="">
         </div>
-        <div style="float: right; cursor: pointer; margin-right: 15px;" @click.prevent.stop="handleClick($event, experience)">
+        <div style="float: right; cursor: pointer; margin-right: 15px;" @click.prevent.stop="handleClick($event, education)">
             <img src="assets/images/dots-horizontal.png" style="">
         </div>
         <div style="padding-top: 15px; display: block; overflow: hidden; ">
@@ -14,8 +14,8 @@
     </div>
 
     <vue-simple-context-menu
-        element-id="mySecondMenu"
-        :options="optionsArray1"
+        element-id="educationMenu"
+        :options="optionsArray"
         ref="vueSimpleContextMenu"
         @option-clicked="optionClicked"
     />
@@ -25,7 +25,7 @@
 export default {
     data() {
         return {
-            optionsArray1: [
+            optionsArray: [
                 {
                 name: 'Edit',
                 slug: 'edit',
@@ -40,16 +40,21 @@ export default {
     methods: {
         handleClick (event, item) {  
             this.$refs.vueSimpleContextMenu.showMenu(event, item)
-            console.log('Click')
         },
         optionClicked (event) {
-            window.alert(JSON.stringify(event))
+
+            if(event.option.slug == 'delete') {
+                axios.delete('api/education/'+event.item.id)
+                    .then(res => {
+                        this.$emit("myEvent")
+                    }).catch(err => console.log(err))
+            }
         }
     },
     mounted() {
-        var menu = document.getElementById('mySecondMenu');
+        var menu = document.getElementById('educationMenu');
         document.firstElementChild.appendChild(menu);
     },
-    props: ['educations']
+    props: ['educations'] 
 }
 </script>

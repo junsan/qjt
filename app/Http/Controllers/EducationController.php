@@ -82,8 +82,9 @@ class EducationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Education $education)
     {
-        //
+        $education->delete();
+        return response()->json('Successfully deleted.');
     }
 }

@@ -82,8 +82,9 @@ class ExperienceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Experience $experience)
     {
-        //
+        $experience->delete();
+        return response()->json('Successfully deleted.');
     }
 }

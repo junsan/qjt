@@ -14,8 +14,8 @@
     </div>
 
     <vue-simple-context-menu
-        element-id="mySecondMenu"
-        :options="optionsArray1"
+        element-id="experienceMenu"
+        :options="optionsArray"
         ref="vueSimpleContextMenu"
         @option-clicked="optionClicked"
     />
@@ -26,8 +26,7 @@
     export default {
         data() {
             return {
-                experiences: [],
-                optionsArray1: [
+                optionsArray: [
                     {
                     name: 'Edit',
                     slug: 'edit',
@@ -39,26 +38,24 @@
                 ],
             }
         },
+        props: ['experiences'],
         mounted() {
-            this.getExperiences()
-            var menu = document.getElementById('mySecondMenu');
+            var menu = document.getElementById('experienceMenu');
             document.firstElementChild.appendChild(menu);
         },
-        methods: {
-            getExperiences() {
-                axios.get('api/experience/'+1)
-                    .then(res => {
-                        this.experiences = res.data.data
-                        console.log(res.data.data);
-                    }).catch(err => console.log(err)) 
-            },      
+        methods: {    
             handleClick (event, item) {
-                
                 this.$refs.vueSimpleContextMenu.showMenu(event, item)
-                console.log('Click')
             },
             optionClicked (event) {
-                window.alert(JSON.stringify(event))
+
+                
+                if(event.option.slug == 'delete') {
+                    axios.delete('api/experience/'+event.item.id)
+                        .then(res => {
+                            this.$emit("myEvent")
+                        }).catch(err => console.log(err))
+                }
             }
         }
     }
