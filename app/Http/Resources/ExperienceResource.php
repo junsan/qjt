@@ -23,7 +23,8 @@ class ExperienceResource extends JsonResource
             'description' => $this->description,
             'from' => $this->from,
             'to' => $this->to,
-            'is_currently' => $this->is_currently
+            'is_currently' => $this->is_currently,
+            'edit' => $this->edit,
         ];
     }
 }

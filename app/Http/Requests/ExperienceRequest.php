@@ -31,7 +31,8 @@ class ExperienceRequest extends FormRequest
             'description' => '',
             'from' => 'required',
             'to' => 'required',
-            'is_currently' => 'required'
+            'is_currently' => 'required',
+            'edit' => ''
         ];
     }
 }

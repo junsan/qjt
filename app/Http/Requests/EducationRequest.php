@@ -32,6 +32,7 @@ class EducationRequest extends FormRequest
             'description' => '',
             'from' => 'required',
             'to' => 'required',
+            'edit' => ''
         ];
     }
 }

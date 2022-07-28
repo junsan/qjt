@@ -24,6 +24,7 @@ class EducationResource extends JsonResource
             'description' => $this->description,
             'from' => $this->from,
             'to' => $this->to,
+            'edit' => $this->edit,
         ];
     }
 }

@@ -22,12 +22,12 @@
         </div>
         <div class="col-md-6 col-sm-12">
             <fieldset>
-            <date-picker v-model:value="experience.from" type="month" placeholder="From*"></date-picker>
+            <date-picker v-model:value="experience.from" type="month" placeholder="From*" value-type="format" format="YYYY-MM-DD"></date-picker>
             </fieldset>
         </div>
         <div class="col-md-6 col-sm-12">
             <fieldset>
-            <date-picker v-model:value="experience.to" type="month" placeholder="To*"></date-picker>
+            <date-picker v-model:value="experience.to" type="month" placeholder="To*" value-type="format" format="YYYY-MM-DD"></date-picker>
             </fieldset>
         </div>
         <div class="col-md-12 col-sm-12">
@@ -38,8 +38,8 @@
         </div>
         <div class="col-md-12 col-sm-12">
             <fieldset>
-            <button type="button" class="btn btn-default mr-2">Cancel</button>
-            <button @click="storeExperience()" type="button"  class="btn btn-primary">Save</button>
+            <button @click="close(experience)" type="button" class="btn btn-default mr-2">Cancel</button>
+            <button @click="updateExperience()" type="button"  class="btn btn-primary">Save</button>
             </fieldset>
         </div>
     </div>
@@ -52,28 +52,24 @@ import 'vue-datepicker-next/index.css';
 export default {
     data() {
         return {
-            experience: {
-              user_id: 1,
-              title: null,
-              company_id: null,
-              location: null,
-              description: null,
-              from: null,
-              to: null,
-              is_currently: false,
-              edit: false
-            },
+            
         }
     },
+    props: ['experience'],
     components: {
         DatePicker
     },
+    mounted() {
+        console.log(this.experience.from);
+    },
     methods: {
-        storeExperience() {
-
+        updateExperience() {
         const headers = {
           "Content-Type": "text/json"
         };
+
+        this.experience.user_id = 1;
+        this.experience.edit = false;
 
         var d = new Date(this.experience.from);
         this.experience.from = $.datepicker.formatDate('yy-mm-dd', d);
@@ -81,14 +77,16 @@ export default {
         var x = new Date(this.experience.to);
         this.experience.to = $.datepicker.formatDate('yy-mm-dd', x);
 
-        axios.post("api/experience", this.experience, {
+        axios.put("api/experience/"+this.experience.id, this.experience, {
             headers: headers
         })
         .then(res => {
             this.$emit("myEvent")
-            this.$emit("closeAddExperience")
         }).catch(err => console.log(err)) 
       },
+      close(item) {
+        this.$emit("close", item)
+      }
     }
 }
 </script>

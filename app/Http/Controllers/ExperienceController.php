@@ -49,7 +49,7 @@ class ExperienceController extends Controller
      */
     public function show($user_id)
     {
-        $experiences = Experience::where('user_id', $user_id)->get();
+        $experiences = Experience::where('user_id', $user_id)->latest()->get();
         return ExperienceResource::collection($experiences);
     }
 
@@ -71,9 +71,10 @@ class ExperienceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ExperienceRequest $request, Experience $experience)
     {
-        //
+        $experience->update($request->validated());
+        return response()->json('Successfully updated.');
     }
 
     /**

@@ -33,7 +33,7 @@
                                 <h4>Experience <span @click="toggleAddExperience()" style="cursor: pointer;"><img src="assets/images/add.png" style="float: right"></span></h4>
                             </div>
 
-                            <add-experience v-if="showAddExperience"  @myEvent="getExperiences"></add-experience>
+                            <add-experience v-if="showAddExperience"  @myEvent="getExperiences" @closeAddExperience="toggleAddExperience"></add-experience>
                             
                             <br><br>
                             <div class="col-md-12 col-sm-12 mb-5">
@@ -47,7 +47,7 @@
                             </div>
 
                             
-                            <add-education v-if="showAddEducation" @myEvent="getEducations"></add-education>
+                            <add-education v-if="showAddEducation" @myEvent="getEducations" @closeAddEducation="toggleAddEducation"></add-education>
 
                             <br><br>
                             <div class="col-md-12 col-sm-12 mb-5">
@@ -69,7 +69,6 @@
 
 <script>
 import Educations from './Educations.vue';
-import AddExperience from './AddExperience.vue';
 
 export default {
     data() {
@@ -81,8 +80,7 @@ export default {
         }
     },
     components: {
-    Educations,
-    AddExperience
+    Educations
 },
     methods: {
       toggleAddEducation() {
@@ -95,14 +93,12 @@ export default {
         axios.get('api/education/'+1)
             .then(res => {
                 this.educations = res.data.data
-                console.log(res.data.data);
             }).catch(err => console.log(err)) 
       },
       getExperiences() {
           axios.get('api/experience/'+1)
               .then(res => {
                   this.experiences = res.data.data
-                  console.log(res.data.data);
               }).catch(err => console.log(err)) 
       },   
     },

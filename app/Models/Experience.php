@@ -17,6 +17,7 @@ class Experience extends Model
         'description',
         'from',
         'to',
-        'is_currently'
+        'is_currently',
+        'edit'
     ];
 }

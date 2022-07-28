@@ -49,7 +49,7 @@ class EducationController extends Controller
      */
     public function show($user_id)
     {
-        $educations = Education::where('user_id', $user_id)->get();
+        $educations = Education::where('user_id', $user_id)->latest()->get();
         return EducationResource::collection($educations);
     }
 
@@ -71,9 +71,10 @@ class EducationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EducationRequest $request, Education $education)
     {
-        //
+        $education->update($request->validated());
+        return response()->json('Successfully updated.');
     }
 
     /**

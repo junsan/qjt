@@ -18,5 +18,6 @@ class Education extends Model
         'description',
         'from',
         'to',
+        'edit'
     ];
 }

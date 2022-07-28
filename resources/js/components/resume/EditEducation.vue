@@ -27,18 +27,18 @@
         </div>
         <div class="col-md-6 col-sm-12">
             <fieldset>
-            <date-picker v-model:value="education.from" type="month" placeholder="From*"></date-picker>
+            <date-picker v-model:value="education.from" type="month" placeholder="From*" value-type="format" format="YYYY-MM-DD"></date-picker>
             </fieldset>
         </div>
         <div class="col-md-6 col-sm-12">
             <fieldset>
-            <date-picker v-model:value="education.to" type="month" placeholder="To*"></date-picker>
+            <date-picker v-model:value="education.to" type="month" placeholder="To*" value-type="format" format="YYYY-MM-DD"></date-picker>
             </fieldset>
         </div>
         <div class="col-md-12 col-sm-12">
             <fieldset>
-            <button type="button" class="btn btn-default mr-2">Cancel</button>
-            <button @click="storeEducation()" type="button"  class="btn btn-primary">Save</button>
+            <button @click="close(education)" type="button" class="btn btn-default mr-2">Cancel</button>
+            <button @click="updateEducation()" type="button"  class="btn btn-primary">Save</button>
             </fieldset>
         </div>
     </div>
@@ -51,27 +51,22 @@ import 'vue-datepicker-next/index.css';
 export default {
     data() {
         return {
-            education: {
-                user_id: 1,
-                school: null,
-                location: null,
-                degree: null,
-                course: null,
-                from: null,
-                to: null,
-                description: null,
-                edit: false
-            }
+
         }
     },
     components: {
       DatePicker
     },
+    props: ['education'],
     methods: {
-      storeEducation() {
+      updateEducation() {
+
         const headers = {
           "Content-Type": "text/json"
         };
+
+        this.education.user_id = 1;
+        this.education.edit = false;
 
         var d = new Date(this.education.from);
         this.education.from = $.datepicker.formatDate('yy-mm-dd', d);
@@ -79,13 +74,15 @@ export default {
         var x = new Date(this.education.to);
         this.education.to = $.datepicker.formatDate('yy-mm-dd', x);
 
-        axios.post("api/education", this.education, {
+        axios.put("api/education/"+this.education.id, this.education, {
             headers: headers
         })
         .then(res => {
             this.$emit("myEvent")
-            this.$emit("closeAddEducation")
         }).catch(err => console.log(err)) 
+      },
+      close(item) {
+        this.$emit("close", item)
       }
     }
 }
