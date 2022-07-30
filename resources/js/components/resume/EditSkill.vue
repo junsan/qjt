@@ -9,16 +9,14 @@
             <fieldset>
                 <select v-model="skill.level">
                     <option value="0" selected>Select skill level...</option>
-                    <option value="Beginner">Beginner</option>
-                    <option value="Intermidiate">Intermidiate</option>
-                    <option value="Advanced">Advanced</option>
+                    <option v-for="(level, index) in levels" :key="index" :value="level">{{level}}</option>
                 </select>
             </fieldset>
         </div>
         <div class="col-md-12 col-sm-12">
             <fieldset>
-            <button type="button" class="btn btn-default mr-2">Cancel</button>
-            <button @click="storeSkill()" type="button"  class="btn btn-primary">Add</button>
+            <button @click="close(skill)" type="button" class="btn btn-default mr-2">Cancel</button>
+            <button @click="updateSkill()" type="button"  class="btn btn-primary">Save</button>
             </fieldset>
         </div>
     </div>
@@ -28,29 +26,32 @@
 export default {
     data() {
         return {
-            skill: {
-                user_id: null,
-                name: null,
-                level: 0,
-                edit: false
-            }
+            levels: [
+                'Beginner',
+                'Intermidiate',
+                'Advanced'
+            ]
         }
     },
+    props: ['skill'],
     methods: {
-      storeSkill() {
+        updateSkill() {
         const headers = {
           "Content-Type": "text/json"
         };
 
-        this.skill.user_id = document.querySelector("meta[name='user-id']").getAttribute('content'); 
+        this.skill.user_id = document.querySelector("meta[name='user-id']").getAttribute('content');
+        this.skill.edit = false;
 
-        axios.post("api/skill", this.skill, {
+        axios.put("api/skill/"+this.skill.id, this.skill, {
             headers: headers
         })
         .then(res => {
             this.$emit("myEvent")
-            this.$emit("closeSkillEducation")
         }).catch(err => console.log(err)) 
+      },
+      close(item) {
+        this.$emit("close", item)
       }
     }
 }

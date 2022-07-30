@@ -47,9 +47,10 @@ class SkillController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($user_id)
     {
-        //
+        $skills = Skill::where('user_id', $user_id)->latest()->get();
+        return SkillResource::collection($skills);
     }
 
     /**
@@ -70,9 +71,10 @@ class SkillController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(SkillRequest $request, Skill $skill)
     {
-        //
+        $skill->update($request->validated());
+        return response()->json('Successfully updated.');
     }
 
     /**
@@ -81,8 +83,9 @@ class SkillController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Skill $skill)
     {
-        //
+        $skill->delete();
+        return response()->json('Successfully deleted.');
     }
 }

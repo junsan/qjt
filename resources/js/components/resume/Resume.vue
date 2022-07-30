@@ -64,9 +64,11 @@
                             <div class="col-md-12 col-sm-12 mb-4">
                                 <h4>Skills <span @click="toggleAddSkill()" style="cursor: pointer;"><img src="assets/images/add.png" style="float: right"></span></h4>
                             </div>
-                            
                             <div class="col-md-12 col-sm-12 mb-4">
-                              <add-skill v-if="showAddSkill" @myEvent="getEducations" @closeAddEducation="toggleAddEducation"></add-skill>
+                              <add-skill v-if="showAddSkill" @myEvent="getSkills"></add-skill>
+                            </div>
+                            <div class="col-md-12 col-sm-12 mb-5">
+                              <skills :skills="skills" @myEvent="getSkills"></skills>
                             </div>
                           </div>
                     </div>
@@ -78,6 +80,7 @@
 
 <script>
 import Educations from './Educations.vue';
+import Skills from './Skills.vue';
 import AddSkill from './AddSkill.vue';
 
 export default {
@@ -85,6 +88,7 @@ export default {
         return {
             educations: [],
             experiences: [],
+            skills: [],
             showAddEducation: false,
             showAddExperience: false,
             showAddSkill: false,
@@ -93,7 +97,8 @@ export default {
     },
     components: {
     Educations,
-    AddSkill
+    AddSkill,
+    Skills
 },
     methods: {
       toggleAddEducation() {
@@ -116,12 +121,19 @@ export default {
               .then(res => {
                   this.experiences = res.data.data
               }).catch(err => console.log(err)) 
+      },
+      getSkills() {
+        axios.get('api/skill/'+this.userId)
+            .then(res => {
+                this.skills = res.data.data
+            }).catch(err => console.log(err)) 
       },   
     },
     mounted() {
       this.userId = document.querySelector("meta[name='user-id']").getAttribute('content');
       this.getEducations()
       this.getExperiences()
+      this.getSkills()
     }
 }
 </script>
