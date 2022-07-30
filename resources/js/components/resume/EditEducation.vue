@@ -65,7 +65,7 @@ export default {
           "Content-Type": "text/json"
         };
 
-        this.education.user_id = 1;
+        this.education.user_id = document.querySelector("meta[name='user-id']").getAttribute('content');
         this.education.edit = false;
 
         var d = new Date(this.education.from);

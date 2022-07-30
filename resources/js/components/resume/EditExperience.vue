@@ -68,7 +68,7 @@ export default {
           "Content-Type": "text/json"
         };
 
-        this.experience.user_id = 1;
+        this.experience.user_id = document.querySelector("meta[name='user-id']").getAttribute('content');
         this.experience.edit = false;
 
         var d = new Date(this.experience.from);

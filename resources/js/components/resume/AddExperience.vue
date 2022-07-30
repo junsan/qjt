@@ -53,7 +53,7 @@ export default {
     data() {
         return {
             experience: {
-              user_id: 1,
+              user_id: null,
               title: null,
               company_id: null,
               location: null,
@@ -74,6 +74,8 @@ export default {
         const headers = {
           "Content-Type": "text/json"
         };
+
+        this.experience.user_id = document.querySelector("meta[name='user-id']").getAttribute('content');    
 
         var d = new Date(this.experience.from);
         this.experience.from = $.datepicker.formatDate('yy-mm-dd', d);

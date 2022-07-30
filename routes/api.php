@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JobController;
+use App\Http\Controllers\SkillController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\IndustryController;
 use App\Http\Controllers\EducationController;
@@ -31,3 +32,4 @@ Route::get('search', [JobController::class, 'search']);
 
 Route::apiResource('experience', ExperienceController::class);
 Route::apiResource('education', EducationController::class);
+Route::apiResource('skill', SkillController::class);

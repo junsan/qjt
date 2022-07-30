@@ -52,7 +52,7 @@ export default {
     data() {
         return {
             education: {
-                user_id: 1,
+                user_id: null,
                 school: null,
                 location: null,
                 degree: null,
@@ -72,6 +72,8 @@ export default {
         const headers = {
           "Content-Type": "text/json"
         };
+
+        this.education.user_id = document.querySelector("meta[name='user-id']").getAttribute('content'); 
 
         var d = new Date(this.education.from);
         this.education.from = $.datepicker.formatDate('yy-mm-dd', d);

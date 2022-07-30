@@ -6,7 +6,7 @@
                     <div class="cta-content">
                         <br>
                         <br>
-                        <h2>Build your <em>Resume here</em></h2>
+                        <h2>Build your <em>Resume</em></h2>
                         <p>Ut consectetur, metus sit amet aliquet placerat, enim est ultricies ligula</p>
                     </div>
                 </div>
