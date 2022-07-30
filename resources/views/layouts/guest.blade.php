@@ -51,7 +51,14 @@
                             <li><a href="{{route('home')}}">Home</a></li>
                             <li><a href="{{route('jobs')}}">Jobs</a></li>
                             <li><a href="{{route('about')}}">About</a></li>
-                            <li><a href="{{route('contact')}}">Contact</a></li> 
+                            <li><a href="{{route('contact')}}">Contact</a></li>
+                            @auth
+                                <li><a href="{{route('resume')}}">Profile</a></li>
+                                <li><a href="{{route('user.logout')}}">Logout</a></li>
+                            @else
+                                <li><a href="{{route('login')}}">Login</a></li>
+                                <li><a href="{{route('register')}}">Register</a></li> 
+                            @endauth
                         </ul>        
                         <a class='menu-trigger'>
                             <span>Menu</span>

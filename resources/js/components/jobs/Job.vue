@@ -1,7 +1,7 @@
 <template>
     <div>
         <h2>{{ job.title }}</h2>
-        <a href="" class="btn btn-primary mt-5 mb-5">Apply Now</a>
+        <a href="/resume" class="btn btn-primary mt-5 mb-5">Apply Now</a>
         <br>
         <h5>Job Description</h5>
         <br>
@@ -10,7 +10,7 @@
         <h5>Requirements</h5>
         <br>
         <p v-html="job.requirements"></p>
-        <a href="" class="btn btn-primary mt-5 mb-5">Apply Now</a>
+        <a href="`/resume`" class="btn btn-primary mt-5 mb-5">Apply Now</a>
     </div>
 
     <vue-simple-context-menu
@@ -27,6 +27,9 @@ export default {
     data() {
     
     },
-    props: ['job']
+    props: ['job'],
+    mounted() {
+        sessionStorage.setItem('job', this.job.id);  
+    }
 }
 </script>

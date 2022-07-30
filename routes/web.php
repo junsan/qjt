@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JobController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\IndustryController;
@@ -29,9 +30,21 @@ Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
 
+Route::get('/login', function () {
+    return view('login');
+})->name('login')->middleware('guest');;
+
+Route::get('/register', function () {
+    return view('register');
+})->name('register')->middleware('guest');;
+
+Route::post('users/store', [UserController::class, 'store'])->name('user.store')->middleware('guest');
+Route::get('users/logout', [UserController::class, 'logout'])->name('user.logout')->middleware('auth');
+Route::post('users/authenticate', [UserController::class, 'authenticate'])->name('user.authenticate')->middleware('guest');
+
 Route::get('/resume', function () {
     return view('resume');
-})->name('resume');
+})->name('resume')->middleware('auth');
 
 Route::get('/jobs',[JobController::class, 'search_jobs'])->name('jobs');
 
