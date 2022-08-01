@@ -16,6 +16,25 @@
                             <div class="col-md-12 col-sm-12 mb-4">
                                 <h4>Personal Information</h4>
                             </div>
+                            
+                            <div class="col-md-12 col-sm-12 mb-4">
+                              <picture-input 
+                                ref="pictureInput"
+                                style="z-index: 0;"
+                                width="180" 
+                                height="180" 
+                                margin="16" 
+                                accept="image/jpeg,image/png" 
+                                size="10" 
+                                button-class="btn"
+                                :hideChangeButton="true"
+                                :custom-strings="{
+                                  upload: '<h1>Bummer!</h1>',
+                                }"
+                                @change="onChange">
+                              </picture-input>
+                            </div>
+
                             <div class="col-md-6 col-sm-12">
                               <fieldset>
                                 <input name="name" type="text" id="name" placeholder="First Name*" required="">
@@ -82,6 +101,7 @@
 import Educations from './Educations.vue';
 import Skills from './Skills.vue';
 import AddSkill from './AddSkill.vue';
+import PictureInput from 'vue-picture-input';
 
 export default {
     data() {
@@ -98,7 +118,8 @@ export default {
     components: {
     Educations,
     AddSkill,
-    Skills
+    Skills,
+    PictureInput
 },
     methods: {
       toggleAddEducation() {
@@ -128,6 +149,15 @@ export default {
                 this.skills = res.data.data
             }).catch(err => console.log(err)) 
       },   
+      onChange (image) {
+        console.log('New picture selected!')
+        if (image) {
+          console.log('Picture loaded.')
+          this.image = image
+        } else {
+          console.log('FileReader API not supported: use the <form>, Luke!')
+        }
+      }
     },
     mounted() {
       this.userId = document.querySelector("meta[name='user-id']").getAttribute('content');
