@@ -1,12 +1,12 @@
 <template>
     <div v-for="skill in skills" :key="skill.id" style="margin-bottom: 20px">
         <div style="float: left; margin-right: 20px;">
-            <img src="assets/images/skills-logos.png" style="">
+            <img src="/assets/images/skills-logos.png" style="">
         </div>
         
         <div v-if="!skill.edit">
             <div style="float: right; cursor: pointer; margin-right: 15px;" @click.prevent.stop="handleClick($event, skill)">
-                <img src="assets/images/dots-horizontal.png" style="">
+                <img src="/assets/images/dots-horizontal.png" style="">
             </div>
             <div style="padding-top: 15px; display: block; overflow: hidden; ">
                 <h6>{{skill.name}}</h6>
