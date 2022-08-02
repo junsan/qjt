@@ -1,12 +1,12 @@
 <template>
     <div v-for="experience in experiences" :key="experience.id" style="margin-bottom: 20px">
         <div style="float: left; margin-right: 15px;">
-            <img src="/assets/images/experience-default.png" style="">
+            <img src="http://www.qatarjobs.today/assets/images/experience-default.png" style="">
         </div>
         
         <div v-if="!experience.edit">
             <div style="float: right; cursor: pointer; margin-right: 15px;" @click.prevent.stop="handleClick($event, experience)">
-                <img src="/assets/images/dots-horizontal.png" style="">
+                <img src="http://www.qatarjobs.today/assets/images/dots-horizontal.png" style="">
             </div>
             <div style="padding-top: 15px; display: block; overflow: hidden; ">
                 <h6>{{experience.title}} <small>{{experience.from}} {{experience.to}}</small></h6>

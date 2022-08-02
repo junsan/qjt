@@ -56,7 +56,7 @@
                               </fieldset>
                             </div>
                             <div class="col-md-12 col-sm-12 mb-4">
-                                <h4>Experience <span @click="toggleAddExperience()" style="cursor: pointer;"><img src="/assets/images/add.png" style="float: right"></span></h4>
+                                <h4>Experience <span @click="toggleAddExperience()" style="cursor: pointer;"><img src="http://www.qatarjobs.today/assets/images/add.png" style="float: right"></span></h4>
                             </div>
 
                             <add-experience v-if="showAddExperience"  @myEvent="getExperiences" @closeAddExperience="toggleAddExperience"></add-experience>
@@ -68,7 +68,7 @@
 
                             <br><br><br><br>
                             <div class="col-md-12 col-sm-12 mb-4">
-                                <h4>Education <span @click="toggleAddEducation()" style="cursor: pointer;"><img src="/assets/images/add.png" style="float: right"></span></h4>
+                                <h4>Education <span @click="toggleAddEducation()" style="cursor: pointer;"><img src="http://www.qatarjobs.today/assets/images/add.png" style="float: right"></span></h4>
                             </div>
 
                             
@@ -81,7 +81,7 @@
 
                             <br><br><br><br>
                             <div class="col-md-12 col-sm-12 mb-4">
-                                <h4>Skills <span @click="toggleAddSkill()" style="cursor: pointer;"><img src="/assets/images/add.png" style="float: right"></span></h4>
+                                <h4>Skills <span @click="toggleAddSkill()" style="cursor: pointer;"><img src="http://www.qatarjobs.today/assets/images/add.png" style="float: right"></span></h4>
                             </div>
                             <div class="col-md-12 col-sm-12 mb-4">
                               <add-skill v-if="showAddSkill" @myEvent="getSkills"></add-skill>
@@ -102,6 +102,7 @@ import Educations from './Educations.vue';
 import Skills from './Skills.vue';
 import AddSkill from './AddSkill.vue';
 import PictureInput from 'vue-picture-input';
+import imgName from "@/assets/images/add.png" ;
 
 export default {
     data() {

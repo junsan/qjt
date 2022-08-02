@@ -1,12 +1,12 @@
 <template>
     <div v-for="education in educations" :key="education.id" style="margin-bottom: 20px">
         <div style="float: left; margin-right: 15px;">
-            <img src="/assets/images/education-default.png" style="">
+            <img src="http://www.qatarjobs.today/assets/images/education-default.png" style="">
         </div>
         
         <div v-if="!education.edit">
             <div style="float: right; cursor: pointer; margin-right: 15px;" @click.prevent.stop="handleClick($event, education)">
-                <img src="/assets/images/dots-horizontal.png" style="">
+                <img src="http://www.qatarjobs.today/assets/images/dots-horizontal.png" style="">
             </div>
             <div style="padding-top: 15px; display: block; overflow: hidden; ">
                 <h6>{{education.school}} <small>{{education.from}} {{education.to}}</small></h6>
